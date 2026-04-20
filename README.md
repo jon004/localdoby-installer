@@ -9,12 +9,12 @@ chmod +x install.sh
 ./install.sh
 ```
 
-# Usage Sample
+## Usage Sample
 
 ```
 // 1. Start LLM Server
 ~/.localdoby/bin/llmserver
 
 // 2. Run document tools commands
-~/.localdoby/bin/document-tools upsert ~/path/to/doc.pdf
+~/.localdoby/bin/document-tools upsert -f ~/path/to/doc.pdf
 ```
