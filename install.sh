@@ -10,6 +10,14 @@ VENV_DIR="$TARGET_DIR/venv"
 
 echo "--- Installing LocalDoby ---"
 
+# 0. Install system dependencies
+if command -v brew &> /dev/null; then
+    echo "Installing ffmpeg for audio format support..."
+    brew install ffmpeg || echo "Warning: ffmpeg installation failed. Audio format support may be limited."
+else
+    echo "Warning: Homebrew not found. Please install ffmpeg manually for audio format support."
+fi
+
 # 1. Create directory structure
 mkdir -p "$BIN_DIR" "$LIB_DIR" "$MODEL_DIR"
 
