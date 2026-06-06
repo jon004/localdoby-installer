@@ -36,9 +36,12 @@ mkdir -p "$BIN_DIR" "$LIB_DIR" "$MODEL_DIR" "$DB_DIR"
 # 3. Fetch Binaries and Config
 TEMP_DIR=$(mktemp -d)
 git clone https://github.com/jon004/localdoby-binaries.git "$TEMP_DIR"
-cp "$TEMP_DIR/bin/llmserver" "$BIN_DIR/"
-cp -r "$TEMP_DIR/lib/"* "$LIB_DIR/"
-cp "$TEMP_DIR/requirements.txt" "$TARGET_DIR/"
+
+# Updated paths to reflect the 'mac/' subdirectory structure
+cp "$TEMP_DIR/mac/bin/llmserver" "$BIN_DIR/"
+cp -r "$TEMP_DIR/mac/lib/"* "$LIB_DIR/"
+cp "$TEMP_DIR/mac/requirements.txt" "$TARGET_DIR/"
+
 chmod +x "$BIN_DIR/llmserver"
 rm -rf "$TEMP_DIR"
 
