@@ -85,7 +85,7 @@ check_and_download() {
 check_and_download "https://huggingface.co/adrianmm12/fact-extractor-1.7b/resolve/main/fact-extractor-1.7b.Q4_K_M.gguf" "fact-extractor-1.7b"
 check_and_download "https://huggingface.co/adrianmm12/Qwen-1.5B-Query-Generator/resolve/main/query-gen-1.5b.Q4_K_M.gguf" "query-generator-1.5b"
 check_and_download "https://huggingface.co/adrianmm12/fact-judge-1.7b/resolve/main/fact-judge-1.7b.Q4_K_M.gguf" "fact-judge-1.7b"
-check_and_download "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/ggml-model-f16.gguf" "all-MiniLM-L6-v2.gguf"
+check_and_download "https://huggingface.co/https://huggingface.co/leliuga/all-MiniLM-L6-v2-GGUF/resolve/main/all-MiniLM-L6-v2.Q4_K_M.gguf" "all-MiniLM-L6-v2.gguf"
 
 # Full Re-ranker Assets
 R_DIR="$MODEL_DIR/ms-marco-MiniLM-L6-v2"
