@@ -86,6 +86,7 @@ check_and_download "https://huggingface.co/adrianmm12/fact-extractor-1.7b/resolv
 check_and_download "https://huggingface.co/adrianmm12/Qwen-1.5B-Query-Generator/resolve/main/query-gen-1.5b.Q4_K_M.gguf" "query-generator-1.5b"
 check_and_download "https://huggingface.co/adrianmm12/fact-judge-1.7b/resolve/main/fact-judge-1.7b.Q4_K_M.gguf" "fact-judge-1.7b"
 check_and_download "https://huggingface.co/leliuga/all-MiniLM-L6-v2-GGUF/resolve/main/all-MiniLM-L6-v2.Q4_K_M.gguf" "all-MiniLM-L6-v2.gguf"
+check_and_download "https://huggingface.co/cstr/ms-marco-MiniLM-L-6-v2-GGUF/resolve/main/ms-marco-MiniLM-L-6-v2-q4_k.gguf" "ms-marco-MiniLM-L6-v2"
 
 # Full Re-ranker Assets
 R_DIR="$MODEL_DIR/ms-marco-MiniLM-L6-v2"
