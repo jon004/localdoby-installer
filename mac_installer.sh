@@ -37,7 +37,6 @@ mkdir -p "$BIN_DIR" "$LIB_DIR" "$MODEL_DIR" "$DB_DIR"
 TEMP_DIR=$(mktemp -d)
 git clone https://github.com/jon004/localdoby-binaries.git "$TEMP_DIR"
 
-# Updated paths to reflect the 'mac/' subdirectory structure
 cp "$TEMP_DIR/mac/bin/llmserver" "$BIN_DIR/"
 cp -r "$TEMP_DIR/mac/lib/"* "$LIB_DIR/"
 cp "$TEMP_DIR/mac/requirements.txt" "$TARGET_DIR/"
@@ -48,19 +47,16 @@ rm -rf "$TEMP_DIR"
 # 4. Hardened Python Setup
 echo "Creating hardened virtual environment..."
 rm -rf "$VENV_DIR"
-# Use specific python3.12 binary to create venv
 "$PYTHON_EXE" -m venv --without-pip "$VENV_DIR"
 source "$VENV_DIR/bin/activate"
 
-# Bootstrap pip using hardened linker path to prevent ImportError
 export DYLD_LIBRARY_PATH="$EXPAT_LIB_PATH"
 curl -sS https://bootstrap.pypa.io/get-pip.py | python3
 
-# Install requirements
 pip install --upgrade pip
 pip install -r "$TARGET_DIR/requirements.txt"
 
-# 5. CLI Wrapper (with persistent path hardening)
+# 5. CLI Wrapper
 cat << EOF > "$BIN_DIR/document-tools"
 #!/bin/bash
 export DYLD_LIBRARY_PATH="$EXPAT_LIB_PATH"
@@ -77,6 +73,7 @@ check_and_download() {
     local DEST="$MODEL_DIR/$2"
     if [[ ! -f "$DEST" ]]; then
         echo "Downloading $2..."
+        # Using -L to follow redirects properly
         curl -L "$1" -o "$DEST"
     fi
 }
@@ -88,17 +85,14 @@ check_and_download "https://huggingface.co/adrianmm12/fact-judge-1.7b/resolve/ma
 check_and_download "https://huggingface.co/leliuga/all-MiniLM-L6-v2-GGUF/resolve/main/all-MiniLM-L6-v2.Q4_K_M.gguf" "all-MiniLM-L6-v2.gguf"
 
 # Full Re-ranker Assets
-R_DIR="$MODEL_DIR/ms-marco-MiniLM-L6-v2"
-mkdir -p "$R_DIR"
+R_SUBDIR="ms-marco-MiniLM-L6-v2"
+mkdir -p "$MODEL_DIR/$R_SUBDIR"
 
-# Download the core model weights (safetensors is preferred over pytorch_model.bin)
-check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/model.safetensors" "$R_DIR/model.safetensors"
-
-# Download configuration and tokenizer files
-check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/config.json" "$R_DIR/config.json"
-check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/vocab.txt" "$R_DIR/vocab.txt"
-check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/tokenizer_config.json" "$R_DIR/tokenizer_config.json"
-check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/special_tokens_map.json" "$R_DIR/special_tokens_map.json"
-check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/tokenizer.json" "$R_DIR/tokenizer.json"
+check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/model.safetensors" "$R_SUBDIR/model.safetensors"
+check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/config.json" "$R_SUBDIR/config.json"
+check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/vocab.txt" "$R_SUBDIR/vocab.txt"
+check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/tokenizer_config.json" "$R_SUBDIR/tokenizer_config.json"
+check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/special_tokens_map.json" "$R_SUBDIR/special_tokens_map.json"
+check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/tokenizer.json" "$R_SUBDIR/tokenizer.json"
 
 echo "Installation Complete."
