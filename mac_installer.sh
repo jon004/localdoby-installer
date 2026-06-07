@@ -86,14 +86,19 @@ check_and_download "https://huggingface.co/adrianmm12/fact-extractor-1.7b/resolv
 check_and_download "https://huggingface.co/adrianmm12/Qwen-1.5B-Query-Generator/resolve/main/query-gen-1.5b.Q4_K_M.gguf" "query-generator-1.5b.gguf"
 check_and_download "https://huggingface.co/adrianmm12/fact-judge-1.7b/resolve/main/fact-judge-1.7b.Q4_K_M.gguf" "fact-judge-1.7b.gguf"
 check_and_download "https://huggingface.co/leliuga/all-MiniLM-L6-v2-GGUF/resolve/main/all-MiniLM-L6-v2.Q4_K_M.gguf" "all-MiniLM-L6-v2.gguf"
-check_and_download "https://huggingface.co/cstr/ms-marco-MiniLM-L-6-v2-GGUF/resolve/main/ms-marco-MiniLM-L-6-v2-q4_k.gguf" "ms-marco-MiniLM-L6-v2.gguf"
 
 # Full Re-ranker Assets
 R_DIR="$MODEL_DIR/ms-marco-MiniLM-L6-v2"
 mkdir -p "$R_DIR"
-check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/pytorch_model.bin" "ms-marco-MiniLM-L6-v2/pytorch_model.bin"
-check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/config.json" "ms-marco-MiniLM-L6-v2/config.json"
-check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/vocab.txt" "ms-marco-MiniLM-L6-v2/vocab.txt"
-check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/tokenizer_config.json" "ms-marco-MiniLM-L6-v2/tokenizer_config.json"
+
+# Download the core model weights (safetensors is preferred over pytorch_model.bin)
+check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/model.safetensors" "$R_DIR/model.safetensors"
+
+# Download configuration and tokenizer files
+check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/config.json" "$R_DIR/config.json"
+check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/vocab.txt" "$R_DIR/vocab.txt"
+check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/tokenizer_config.json" "$R_DIR/tokenizer_config.json"
+check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/special_tokens_map.json" "$R_DIR/special_tokens_map.json"
+check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/tokenizer.json" "$R_DIR/tokenizer.json"
 
 echo "Installation Complete."
