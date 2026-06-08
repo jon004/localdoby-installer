@@ -56,7 +56,7 @@ curl -sS https://bootstrap.pypa.io/get-pip.py | python3
 pip install --upgrade pip
 pip install -r "$TARGET_DIR/requirements.txt"
 
-# Explicitly download spaCy model
+# Explicitly download spaCy model via CLI after pip install
 echo "Installing spaCy language model..."
 python -m spacy download en_core_web_sm
 
@@ -75,7 +75,6 @@ chmod +x "$BIN_DIR/document-tools"
 # 6. Model Downloads
 check_and_download() {
     local DEST="$MODEL_DIR/$2"
-    # Ensure the parent directory exists
     mkdir -p "$(dirname "$DEST")"
     if [[ ! -f "$DEST" ]]; then
         echo "Downloading $2..."
@@ -91,7 +90,6 @@ check_and_download "https://huggingface.co/leliuga/all-MiniLM-L6-v2-GGUF/resolve
 
 # Full Re-ranker Assets
 R_SUBDIR="ms-marco-MiniLM-L6-v2"
-
 check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/model.safetensors" "$R_SUBDIR/model.safetensors"
 check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/config.json" "$R_SUBDIR/config.json"
 check_and_download "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2/resolve/main/vocab.txt" "$R_SUBDIR/vocab.txt"
