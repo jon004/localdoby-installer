@@ -83,9 +83,10 @@ check_and_download() {
 }
 
 # Core Pipeline Models
-check_and_download "https://huggingface.co/adrianmm12/fact-extractor-1.7b/resolve/main/fact-extractor-1.7b.Q4_K_M.gguf" "fact-extractor-1.7b.gguf"
-check_and_download "https://huggingface.co/adrianmm12/Qwen-1.5B-Query-Generator/resolve/main/query-gen-1.5b.Q4_K_M.gguf" "query-generator-1.5b.gguf"
-check_and_download "https://huggingface.co/adrianmm12/fact-judge-1.7b/resolve/main/fact-judge-1.7b.Q4_K_M.gguf" "fact-judge-1.7b.gguf"
+check_and_download "https://huggingface.co/adrianmm12/fact-extractor-1.7b/resolve/main/fact-extractor-1.7b-q8_0.gguf" "fact-extractor-1.7b.gguf"
+check_and_download "https://huggingface.co/adrianmm12/Qwen-1.5B-Query-Generator/resolve/main/query-generator-1.5b-Q8_0.gguf" "query-generator-1.5b.gguf"
+check_and_download "https://huggingface.co/adrianmm12/fact-judge-1.7b/resolve/main/fact-judge-1.7b-q8_0.gguf" "fact-judge-1.7b.gguf"
+
 check_and_download "https://huggingface.co/leliuga/all-MiniLM-L6-v2-GGUF/resolve/main/all-MiniLM-L6-v2.Q4_K_M.gguf" "all-MiniLM-L6-v2.gguf"
 
 # Full Re-ranker Assets
